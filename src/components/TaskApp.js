@@ -41,7 +41,7 @@ export default class TaskApp extends React.Component {
   };
   render() {
     const title = "TaskApp";
-    const subtitle = "Put your life in the hands of a computer";
+    const subtitle = "Put your life in the hands of SCSS";
 
     return (
       <div>

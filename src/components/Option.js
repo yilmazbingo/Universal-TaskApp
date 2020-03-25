@@ -11,7 +11,7 @@ const Option = props => {
           className="button button--link"
           onClick={() => props.handleDeleteOption(props.optionText)}
         >
-          remove
+          X
         </button>
       </span>
     </div>

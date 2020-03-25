@@ -1,0 +1,13 @@
+.option {
+  border-bottom: 0.1rem solid lighten($purple, 30%);
+  display: flex;
+  justify-content: space-between;
+  padding: $l-size $m-size;
+}
+
+.option__text {
+  color: $dark-blue;
+  font-weight: 500;
+  font-size: 2rem;
+  margin: 0;
+}

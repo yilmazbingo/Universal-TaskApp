@@ -167,13 +167,14 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.css$/,
+        test: /\.s?css$/,
         use: [
           {
             loader: ExtractCssChunks.loader
           },
 
-          { loader: "css-loader" }
+          { loader: "css-loader" },
+          { loader: "sass-loader" }
         ]
       },
       {

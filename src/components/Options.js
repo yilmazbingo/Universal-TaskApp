@@ -15,7 +15,7 @@ const Options = props => {
       </div>
 
       {props.options.length === 0 && (
-        <p className="widget__message">please add an option</p>
+        <p className="widget__message">Please add an option</p>
       )}
       {props.options.map((option, index) => (
         <Option
