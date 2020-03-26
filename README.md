@@ -191,7 +191,41 @@ in our css we use `@media (condition) {} ` to define our css conditionally. Main
       }
      }
 
+ ### Adding favicon to the project
  
+ Install [react-favicon](https://www.npmjs.com/package/react-favicon)
+ 
+ in /src/app.js
+ 
+      import React from "react";
+      import ReactDOM from "react-dom";
+      import TaskApp from "./components/TaskApp";
+      import Favicon from "react-favicon";
+      import img from "./images/pict.jpg";
+
+      function render(Component) {
+        ReactDOM.hydrate(
+          <div>
+            <Favicon url={img} />
+            <Component />
+          </div>,
+          document.getElementById("react-root")
+        );
+      }
+
+      render(TaskApp);
+
+ **NOTE:** it can be any type image file. if you are using a different image type that you did not inform file-loader you have to conifgure webpack. for example If you want to use favicon.ico 
+ 
+        {
+        test: /\.(jpg|jpeg|png|gif|ico)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: { name: "images/[name].[ext]" }
+          }
+        ]
+      }
 
 
 
