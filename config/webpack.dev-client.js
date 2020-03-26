@@ -78,7 +78,7 @@ module.exports = {
       },
 
       {
-        test: /\.(jpg|jpeg|png|gif)$/,
+        test: /\.(jpg|jpeg|png|gif|ico)$/,
         use: [
           {
             loader: "file-loader",
@@ -102,3 +102,5 @@ module.exports = {
     new webpack.SourceMapDevToolPlugin()
   ]
 };
+
+console.log(__dirname);
