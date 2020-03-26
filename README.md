@@ -145,6 +145,53 @@ if you open React Modal in the project, you will see a new div will be injected 
             }
 
   
+##### Mobile Considerations
+- The User-Agent is a request header provides essential information of the requesting client, especially for certain recipient in our app for server, it’s just a string describing the operating system, engine, browser - including their versions.
+          
+          Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36 
+          
+ Most of the mobile devices concatenate “Mobile” keyword to the userAgent, which controversially could serve our server in order to detect wisely the device type of the client:. with [UAParser.js](https://www.npmjs.com/package/ua-parser-js) package we can strip the user agent out of the request object.
+ 
+    const uaParser = require('ua-parser-js');
+
+    const userAgent = uaParser(req.headers['user-agent']);
+    
+Then with the **context** prop of the StaticBrowser we can pass it to the client. 
+
+There are a few drawbacks to this strategy. 😞
+
+   First of all, the information we can extract out of the userAgent is pretty limited. Namely, we cannot understand the device properties (dimensions, orientation, etc.) directly. Indeed, it might be possible to infer the viewport dimensions someway, however then again - it leaves the orientation (and others) unsolved.
+
+   Secondly, it doesn’t cover the scenario we render different components per each breakpoint. Obviously, we can say that our server infers the dimensions independently using the provided type and thereafter passes them to the application to be used as defaults - but practically, that’s not doable in case of a variety of breakpoints.
+
+   Thirdly, we assumed that the userAgent includes “Mobile” keyword on mobile devices whereas it’s not completely true. Some of the browsers concatenate unique variations instead; such as “Mobi”, “IEMobile” and even “Tablet”. Although libraries like UAParser.js typically consider them, that’s a concern we should recognize. And worse, these keywords might be missing when rendering using a desktop browser that’s resized to mobile dimensions - which would probably lead to DOM tree mismatches.
+
+We can use pure CSS. Add this to our server-side html template:
+ 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+in our css we use `@media (condition) {} ` to define our css conditionally. Main consideration for mobile devices is to change the flex-drection to column instead of row. By default once you add the `display:flex`, its direction is row. But in small devices we focus on positionin elements under each other. 
+
+     //_add_option.scss
+     
+     .add-option {
+    display: flex;
+    padding: $m-size;
+    flex-direction: column;
+    }
+    // in general flex direction should be column so input and button should posistioned under each other.
+    //In media query we add the codidion that between 45rem-infinity, flex-direction under the .add-option class should be row. So between 0-45rem which is for small devicess, it will be column.
+    // $desktop-breakpoint:45rem
+     @media (min-width: $desktop-breakpoint) {
+      .add-option {
+        flex-direction: row;
+      }
+      .add-option__input {
+        margin: 0 $s-size 0 0;
+      }
+     }
+
+ 
 
 
 
